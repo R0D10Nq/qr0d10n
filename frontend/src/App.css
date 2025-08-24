@@ -1,0 +1,22 @@
+/* Дополнительные стили для App компонента */
+
+.app {
+  min-height: 100vh;
+}
+
+/* Плавная прокрутка для якорных ссылок */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Переопределения для лучшей типографики */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  line-height: 1.6;
+}
