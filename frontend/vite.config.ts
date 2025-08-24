@@ -7,7 +7,7 @@ export default defineConfig(({ command }) => {
   
   return {
     plugins: [react()],
-    base: isProduction ? '/qr0d10n/' : '/',
+    base: isProduction ? '/qr0d10n' : '/',
     build: {
       outDir: 'dist',
       assetsDir: 'assets',
