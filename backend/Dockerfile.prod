@@ -1,5 +1,5 @@
 # Production Dockerfile для FastAPI backend
-FROM python:3.11-slim AS builder
+FROM python:3.13-slim AS builder
 
 # Устанавливаем рабочую директорию
 WORKDIR /app
@@ -18,7 +18,7 @@ RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
 # Production образ
-FROM python:3.11-slim AS production
+FROM python:3.13-slim AS production
 
 # Устанавливаем рабочую директорию
 WORKDIR /app
