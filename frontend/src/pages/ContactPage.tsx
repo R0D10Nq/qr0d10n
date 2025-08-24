@@ -57,6 +57,18 @@ const ContactPage: React.FC = () => {
     },
   ];
 
+  if (isLoading) {
+    return (
+      <div className="section">
+        <div className="container-custom">
+          <div className="flex justify-center py-12">
+            <LoadingSpinner />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="section">
       <div className="container-custom">

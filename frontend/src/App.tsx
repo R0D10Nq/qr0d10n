@@ -72,10 +72,13 @@ const queryClient = new QueryClient({
 });
 
 function App() {
+  // Определяем basename для GitHub Pages
+  const basename = import.meta.env.VITE_GITHUB_PAGES === 'true' ? '/qr0d10n' : '';
+  
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
-        <Router>
+        <Router basename={basename}>
           <motion.div 
             className="min-h-screen flex flex-col bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100"
             initial={{ opacity: 0 }}
