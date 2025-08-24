@@ -73,7 +73,7 @@ const queryClient = new QueryClient({
 
 function App() {
   // Определяем basename для GitHub Pages
-  const basename = import.meta.env.VITE_GITHUB_PAGES === 'true' ? '/qr0d10n' : '';
+  const basename = '/qr0d10n';
   
   return (
     <QueryClientProvider client={queryClient}>
