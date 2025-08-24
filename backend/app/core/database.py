@@ -81,12 +81,13 @@ async def init_db() -> None:
     """
     Инициализируем базу данных - создаем таблицы если их нет.
     """
+    # Импортируем модели чтобы они регистрировались в Base
+    from app.models.portfolio import PersonalInfo, Project, Technology, Experience, ProjectTechnology  # noqa: F401
+    
     if async_engine:
         # Для PostgreSQL
-        from app.models import *  # noqa: F401, F403
         async with async_engine.begin() as conn:
             await conn.run_sync(Base.metadata.create_all)
     else:
         # Для SQLite
-        from app.models import *  # noqa: F401, F403
         Base.metadata.create_all(bind=engine)

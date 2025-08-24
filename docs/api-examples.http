@@ -1,0 +1,251 @@
+# R0D10N Portfolio API Examples
+# HTTP клиент файл для тестирования API
+# Можно использовать в VS Code с REST Client расширением
+
+### Variables
+@baseUrl = http://localhost:8000
+@apiUrl = {{baseUrl}}/api/v1
+
+### Headers
+@contentType = application/json
+
+### ===== BASIC ENDPOINTS =====
+
+### 1. Root endpoint - проверка работоспособности
+GET {{baseUrl}}/
+Accept: {{contentType}}
+
+### 2. Health check
+GET {{baseUrl}}/health
+Accept: {{contentType}}
+
+### ===== PORTFOLIO ENDPOINTS =====
+
+### 3. Полное портфолио (основной endpoint)
+GET {{apiUrl}}/portfolio/
+Accept: {{contentType}}
+
+### 4. Личная информация
+GET {{apiUrl}}/portfolio/personal
+Accept: {{contentType}}
+
+### 5. Все проекты (с пагинацией по умолчанию)
+GET {{apiUrl}}/portfolio/projects
+Accept: {{contentType}}
+
+### 6. Только избранные проекты
+GET {{apiUrl}}/portfolio/projects?featured_only=true
+Accept: {{contentType}}
+
+### 7. Проекты с фильтром по технологии
+GET {{apiUrl}}/portfolio/projects?technology=Python
+Accept: {{contentType}}
+
+### 8. Проекты с пагинацией (2 страница, по 5 штук)
+GET {{apiUrl}}/portfolio/projects?page=2&per_page=5
+Accept: {{contentType}}
+
+### 9. Комбинированный фильтр
+GET {{apiUrl}}/portfolio/projects?featured_only=true&technology=React&per_page=3
+Accept: {{contentType}}
+
+### 10. Конкретный проект по ID
+GET {{apiUrl}}/portfolio/projects/1
+Accept: {{contentType}}
+
+### 11. Несуществующий проект (должен вернуть 404)
+GET {{apiUrl}}/portfolio/projects/999
+Accept: {{contentType}}
+
+### 12. Опыт работы
+GET {{apiUrl}}/portfolio/experience
+Accept: {{contentType}}
+
+### 13. Все технологии
+GET {{apiUrl}}/portfolio/technologies
+Accept: {{contentType}}
+
+### 14. Технологии по категориям
+GET {{apiUrl}}/portfolio/technologies?category=backend
+Accept: {{contentType}}
+
+### 15. Фронтенд технологии
+GET {{apiUrl}}/portfolio/technologies?category=frontend
+Accept: {{contentType}}
+
+### 16. Статистика портфолио
+GET {{apiUrl}}/portfolio/stats
+Accept: {{contentType}}
+
+### ===== CONTACT ENDPOINTS =====
+
+### 17. Отправка контактного сообщения
+POST {{apiUrl}}/contact/message
+Content-Type: {{contentType}}
+
+{
+  "name": "Иван Иванов",
+  "email": "ivan.ivanov@example.com",
+  "subject": "Предложение о работе",
+  "message": "Здравствуйте! Меня заинтересовал ваш опыт в разработке на Python. Хотел бы обсудить возможность сотрудничества в нашей компании. Мы занимаемся разработкой fintech решений и ищем опытного fullstack разработчика.",
+  "company": "FinTech Solutions"
+}
+
+### 18. Отправка сообщения с минимальными данными
+POST {{apiUrl}}/contact/message
+Content-Type: {{contentType}}
+
+{
+  "name": "Анна Петрова",
+  "email": "anna@startup.com",
+  "subject": "Вопрос по проекту",
+  "message": "Привет! Видела твой проект на GitHub. Можем ли мы использовать его в нашем стартапе?"
+}
+
+### 19. Невалидное сообщение (пустое имя)
+POST {{apiUrl}}/contact/message
+Content-Type: {{contentType}}
+
+{
+  "name": "",
+  "email": "test@example.com",
+  "subject": "Test",
+  "message": "Test message"
+}
+
+### 20. Невалидный email
+POST {{apiUrl}}/contact/message
+Content-Type: {{contentType}}
+
+{
+  "name": "Test User",
+  "email": "invalid-email",
+  "subject": "Test",
+  "message": "Test message"
+}
+
+### 21. Подписка на рассылку
+POST {{apiUrl}}/contact/subscribe
+Content-Type: {{contentType}}
+
+{
+  "email": "subscriber@example.com"
+}
+
+### 22. Повторная подписка (должна вернуть сообщение об уже существующей подписке)
+POST {{apiUrl}}/contact/subscribe
+Content-Type: {{contentType}}
+
+{
+  "email": "subscriber@example.com"
+}
+
+### 23. Отписка от рассылки
+POST {{apiUrl}}/contact/unsubscribe?email=subscriber@example.com
+Content-Type: {{contentType}}
+
+### 24. Отписка несуществующего email
+POST {{apiUrl}}/contact/unsubscribe?email=nonexistent@example.com
+Content-Type: {{contentType}}
+
+### ===== ERROR CASES =====
+
+### 25. Несуществующий endpoint
+GET {{apiUrl}}/nonexistent
+Accept: {{contentType}}
+
+### 26. Неправильный метод
+POST {{apiUrl}}/portfolio/
+Content-Type: {{contentType}}
+
+### 27. Невалидные query параметры
+GET {{apiUrl}}/portfolio/projects?page=0&per_page=1000
+Accept: {{contentType}}
+
+### ===== PERFORMANCE TESTS =====
+
+### 28. Большой запрос проектов
+GET {{apiUrl}}/portfolio/projects?per_page=100
+Accept: {{contentType}}
+
+### 29. Множественные запросы (для тестирования rate limiting)
+# Запустить несколько раз подряд
+GET {{apiUrl}}/portfolio/stats
+Accept: {{contentType}}
+
+### ===== CURL EXAMPLES =====
+
+# Можно также использовать эти команды в терминале:
+
+# Получение портфолио
+# curl -X GET "http://localhost:8000/api/v1/portfolio/" \
+#      -H "accept: application/json"
+
+# Отправка сообщения
+# curl -X POST "http://localhost:8000/api/v1/contact/message" \
+#      -H "accept: application/json" \
+#      -H "Content-Type: application/json" \
+#      -d '{
+#        "name": "Test User",
+#        "email": "test@example.com",
+#        "subject": "Test Subject",
+#        "message": "Test message content"
+#      }'
+
+# Получение проектов с фильтрами
+# curl -X GET "http://localhost:8000/api/v1/portfolio/projects?featured_only=true&per_page=5" \
+#      -H "accept: application/json"
+
+### ===== JAVASCRIPT EXAMPLES =====
+
+# В браузере или Node.js:
+
+# // Получение портфолио
+# const response = await fetch('http://localhost:8000/api/v1/portfolio/');
+# const portfolio = await response.json();
+# console.log(portfolio);
+
+# // Отправка сообщения
+# const messageData = {
+#   name: 'John Doe',
+#   email: 'john@example.com',
+#   subject: 'Job Inquiry',
+#   message: 'Hello! I am interested in discussing job opportunities.'
+# };
+
+# const response = await fetch('http://localhost:8000/api/v1/contact/message', {
+#   method: 'POST',
+#   headers: {
+#     'Content-Type': 'application/json',
+#   },
+#   body: JSON.stringify(messageData)
+# });
+
+# const result = await response.json();
+# console.log(result);
+
+### ===== PYTHON EXAMPLES =====
+
+# С использованием requests:
+
+# import requests
+
+# # Получение проектов
+# response = requests.get('http://localhost:8000/api/v1/portfolio/projects')
+# projects = response.json()
+# print(f"Найдено проектов: {projects['total']}")
+
+# # Отправка сообщения
+# message_data = {
+#     'name': 'Python Developer',
+#     'email': 'python@dev.com',
+#     'subject': 'API Test',
+#     'message': 'Testing API from Python script'
+# }
+
+# response = requests.post(
+#     'http://localhost:8000/api/v1/contact/message',
+#     json=message_data
+# )
+# result = response.json()
+# print(result)

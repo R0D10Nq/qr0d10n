@@ -1,0 +1,70 @@
+version: 2
+updates:
+  # Python dependencies
+  - package-ecosystem: "pip"
+    directory: "/backend"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "R0D10Nq"
+    assignees:
+      - "R0D10Nq"
+    commit-message:
+      prefix: "⬆️"
+      prefix-development: "⬆️ dev"
+      include: "scope"
+
+  # Node.js dependencies
+  - package-ecosystem: "npm"
+    directory: "/frontend"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "R0D10Nq"
+    assignees:
+      - "R0D10Nq"
+    commit-message:
+      prefix: "⬆️"
+      prefix-development: "⬆️ dev"
+      include: "scope"
+
+  # Docker dependencies
+  - package-ecosystem: "docker"
+    directory: "/backend"
+    schedule:
+      interval: "weekly"
+      day: "tuesday"
+      time: "09:00"
+    reviewers:
+      - "R0D10Nq"
+    assignees:
+      - "R0D10Nq"
+
+  - package-ecosystem: "docker"
+    directory: "/frontend"
+    schedule:
+      interval: "weekly"
+      day: "tuesday"
+      time: "09:00"
+    reviewers:
+      - "R0D10Nq"
+    assignees:
+      - "R0D10Nq"
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+      time: "09:00"
+    reviewers:
+      - "R0D10Nq"
+    assignees:
+      - "R0D10Nq"

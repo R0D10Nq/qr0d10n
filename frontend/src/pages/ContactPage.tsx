@@ -10,7 +10,7 @@ import { LoadingSpinner } from '../components/Loading';
 import type { ContactMessage } from '../types';
 
 const ContactPage: React.FC = () => {
-  const { data: personalInfo } = usePersonalInfo();
+  const { data: personalInfo, isLoading } = usePersonalInfo();
   const sendMessage = useSendMessage();
 
   const {

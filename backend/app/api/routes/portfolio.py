@@ -3,10 +3,11 @@ API endpoints для портфолио данных.
 Тут получаем проекты, опыт работы, технологии и прочую инфу.
 """
 
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
+from sqlalchemy import func
 
 from app.core.database import get_sync_session
 from app.models.portfolio import Experience, PersonalInfo, Project, Technology
@@ -22,7 +23,22 @@ from app.schemas.portfolio import (
 router = APIRouter()
 
 
-@router.get("/", response_model=Portfolio)
+@router.get(
+    "/", 
+    response_model=Portfolio,
+    summary="📁 Полное портфолио",
+    description="""
+    Получает всю информацию о портфолио одним запросом.
+    
+    Включает:
+    - Личную информацию разработчика
+    - Список всех активных проектов
+    - Опыт работы с сортировкой по дате
+    - Все активные технологии
+    """,
+    response_description="Полные данные портфолио",
+    tags=["portfolio"]
+)
 def get_full_portfolio(db: Session = Depends(get_sync_session)) -> Portfolio:
     """
     Получаем полное портфолио со всей информацией.
@@ -50,7 +66,23 @@ def get_full_portfolio(db: Session = Depends(get_sync_session)) -> Portfolio:
     )
 
 
-@router.get("/personal", response_model=PersonalInfoSchema)
+@router.get(
+    "/personal", 
+    response_model=PersonalInfoSchema,
+    summary="👤 Личная информация",
+    description="""
+    Получает личную информацию разработчика.
+    
+    Включает:
+    - Имя и должность
+    - Контактную информацию
+    - Ссылки на соцсети
+    - Аватар и резюме
+    - Статус доступности для работы
+    """,
+    response_description="Личная информация разработчика",
+    tags=["portfolio"]
+)
 def get_personal_info(db: Session = Depends(get_sync_session)) -> PersonalInfoSchema:
     """
     Получаем личную информацию разработчика.
@@ -61,7 +93,22 @@ def get_personal_info(db: Session = Depends(get_sync_session)) -> PersonalInfoSc
     return personal_info
 
 
-@router.get("/projects", response_model=ProjectList)
+@router.get(
+    "/projects", 
+    response_model=ProjectList,
+    summary="📦 Список проектов",
+    description="""
+    Получает список проектов с фильтрацией и пагинацией.
+    
+    Возможности фильтрации:
+    - По статусу избранного (показать только лучшие)
+    - По технологиям (найти проекты с конкретной технологией)
+    
+    Пагинация поддерживает до 100 элементов на страницу.
+    """,
+    response_description="Список проектов с метаданными пагинации",
+    tags=["portfolio"]
+)
 def get_projects(
     db: Session = Depends(get_sync_session),
     featured_only: bool = Query(False, description="Показывать только избранные проекты"),
@@ -146,7 +193,7 @@ def get_technologies(
 
 
 @router.get("/stats")
-def get_portfolio_stats(db: Session = Depends(get_sync_session)) -> dict[str, any]:
+def get_portfolio_stats(db: Session = Depends(get_sync_session)) -> Dict[str, Any]:
     """
     Получаем статистику портфолио.
     """
@@ -157,7 +204,7 @@ def get_portfolio_stats(db: Session = Depends(get_sync_session)) -> dict[str, an
     ).count()
     technologies_count = db.query(Technology).filter(Technology.is_active == True).count()
     total_stars = db.query(Project).filter(Project.is_active == True).with_entities(
-        db.func.sum(Project.stars_count)
+        func.sum(Project.stars_count)
     ).scalar() or 0
     
     return {

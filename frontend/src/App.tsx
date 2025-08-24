@@ -1,12 +1,65 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar';
 import HomePage from './pages/HomePage';
 import ProjectsPage from './pages/ProjectsPage';
 import ContactPage from './pages/ContactPage';
 import Footer from './components/Footer';
 import ThemeProvider from './providers/ThemeProvider';
+import { pageTransition } from './utils/animations';
 import './App.css';
+
+// Компонент для анимаций переходов между страницами
+const AnimatedRoutes = () => {
+  const location = useLocation();
+  
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route 
+          path="/" 
+          element={
+            <motion.div
+              variants={pageTransition}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+            >
+              <HomePage />
+            </motion.div>
+          } 
+        />
+        <Route 
+          path="/projects" 
+          element={
+            <motion.div
+              variants={pageTransition}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+            >
+              <ProjectsPage />
+            </motion.div>
+          } 
+        />
+        <Route 
+          path="/contact" 
+          element={
+            <motion.div
+              variants={pageTransition}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+            >
+              <ContactPage />
+            </motion.div>
+          } 
+        />
+      </Routes>
+    </AnimatePresence>
+  );
+};
 
 // Создаем клиент для React Query
 const queryClient = new QueryClient({
@@ -23,19 +76,20 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <Router>
-          <div className="min-h-screen flex flex-col bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100">
+          <motion.div 
+            className="min-h-screen flex flex-col bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
             <Navbar />
             
             <main className="flex-grow">
-              <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/projects" element={<ProjectsPage />} />
-                <Route path="/contact" element={<ContactPage />} />
-              </Routes>
+              <AnimatedRoutes />
             </main>
             
             <Footer />
-          </div>
+          </motion.div>
         </Router>
       </ThemeProvider>
     </QueryClientProvider>

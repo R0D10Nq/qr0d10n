@@ -1,0 +1,181 @@
+name: Code Quality
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  # Python code quality
+  python-quality:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Cache pip dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-quality-${{ hashFiles('backend/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-quality-
+          ${{ runner.os }}-pip-
+    
+    - name: Install dependencies
+      run: |
+        cd backend
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install ruff black isort mypy bandit safety
+        
+    - name: Run ruff linting
+      run: |
+        cd backend
+        ruff check . --output-format=github
+        
+    - name: Check code formatting with black
+      run: |
+        cd backend
+        black --check --diff .
+        
+    - name: Check import sorting with isort
+      run: |
+        cd backend
+        isort --check-only --diff .
+        
+    - name: Run type checking with mypy
+      run: |
+        cd backend
+        mypy app/
+        
+    - name: Run security check with bandit
+      run: |
+        cd backend
+        bandit -r app/ -f json -o bandit-report.json || true
+        bandit -r app/
+        
+    - name: Run safety check
+      run: |
+        cd backend
+        safety check --json --output safety-report.json || true
+        safety check
+        
+    - name: Upload security reports
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: python-security-reports
+        path: |
+          backend/bandit-report.json
+          backend/safety-report.json
+
+  # TypeScript/JavaScript code quality
+  typescript-quality:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
+        
+    - name: Install dependencies
+      run: |
+        cd frontend
+        npm ci
+        
+    - name: Run ESLint
+      run: |
+        cd frontend
+        npm run lint -- --format=@microsoft/eslint-formatter-sarif --output-file=eslint-results.sarif
+      continue-on-error: true
+        
+    - name: Run Prettier check
+      run: |
+        cd frontend
+        npm run format:check
+        
+    - name: Run TypeScript compiler
+      run: |
+        cd frontend
+        npm run type-check
+        
+    - name: Upload ESLint results
+      uses: github/codeql-action/upload-sarif@v2
+      if: always()
+      with:
+        sarif_file: frontend/eslint-results.sarif
+        wait-for-processing: true
+
+  # Dependency vulnerability scanning
+  dependency-scan:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Run npm audit
+      run: |
+        cd frontend
+        npm audit --audit-level=moderate
+      continue-on-error: true
+        
+    - name: Run pip audit
+      uses: pypa/gh-action-pip-audit@v1.0.8
+      with:
+        inputs: backend/requirements.txt
+        virtual-environment: backend/venv/
+
+  # Secrets scanning
+  secrets-scan:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        
+    - name: Run gitleaks
+      uses: gitleaks/gitleaks-action@v2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
+
+  # Performance testing
+  performance-test:
+    runs-on: ubuntu-latest
+    needs: [python-quality, typescript-quality]
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
+        
+    - name: Install dependencies and build
+      run: |
+        cd frontend
+        npm ci
+        npm run build
+        
+    - name: Run Lighthouse CI
+      uses: treosh/lighthouse-ci-action@v10
+      with:
+        configPath: './frontend/.lighthouserc.json'
+        uploadArtifacts: true
+        temporaryPublicStorage: true

@@ -1,0 +1,446 @@
+{
+  "info": {
+    "name": "R0D10N Portfolio API",
+    "description": "Complete API collection for R0D10N Portfolio - Python/Fullstack Developer showcase API built with FastAPI",
+    "version": "1.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "apiUrl",
+      "value": "{{baseUrl}}/api/v1",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health & Info",
+      "item": [
+        {
+          "name": "Root Endpoint",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/",
+              "host": ["{{baseUrl}}"],
+              "path": [""]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["health"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Portfolio",
+      "item": [
+        {
+          "name": "Full Portfolio",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{apiUrl}}/portfolio/",
+              "host": ["{{apiUrl}}"],
+              "path": ["portfolio", ""]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Personal Info",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{apiUrl}}/portfolio/personal",
+              "host": ["{{apiUrl}}"],
+              "path": ["portfolio", "personal"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "All Projects",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{apiUrl}}/portfolio/projects",
+              "host": ["{{apiUrl}}"],
+              "path": ["portfolio", "projects"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Featured Projects Only",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{apiUrl}}/portfolio/projects?featured_only=true",
+              "host": ["{{apiUrl}}"],
+              "path": ["portfolio", "projects"],
+              "query": [
+                {
+                  "key": "featured_only",
+                  "value": "true"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Projects by Technology",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{apiUrl}}/portfolio/projects?technology=Python&per_page=5",
+              "host": ["{{apiUrl}}"],
+              "path": ["portfolio", "projects"],
+              "query": [
+                {
+                  "key": "technology",
+                  "value": "Python"
+                },
+                {
+                  "key": "per_page",
+                  "value": "5"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Project by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{apiUrl}}/portfolio/projects/1",
+              "host": ["{{apiUrl}}"],
+              "path": ["portfolio", "projects", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Experience",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{apiUrl}}/portfolio/experience",
+              "host": ["{{apiUrl}}"],
+              "path": ["portfolio", "experience"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "All Technologies",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{apiUrl}}/portfolio/technologies",
+              "host": ["{{apiUrl}}"],
+              "path": ["portfolio", "technologies"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Backend Technologies",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{apiUrl}}/portfolio/technologies?category=backend",
+              "host": ["{{apiUrl}}"],
+              "path": ["portfolio", "technologies"],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "backend"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Portfolio Stats",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{apiUrl}}/portfolio/stats",
+              "host": ["{{apiUrl}}"],
+              "path": ["portfolio", "stats"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Contact",
+      "item": [
+        {
+          "name": "Send Message",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\\n  \\\"name\\\": \\\"John Doe\\\",\\n  \\\"email\\\": \\\"john.doe@example.com\\\",\\n  \\\"subject\\\": \\\"Job Opportunity\\\",\\n  \\\"message\\\": \\\"Hello! I am interested in discussing a job opportunity with our company. We are looking for an experienced Python developer.\\\",\\n  \\\"company\\\": \\\"Tech Innovations Inc\\\"\\n}"
+            },
+            "url": {
+              "raw": "{{apiUrl}}/contact/message",
+              "host": ["{{apiUrl}}"],
+              "path": ["contact", "message"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Subscribe Newsletter",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\\n  \\\"email\\\": \\\"subscriber@example.com\\\"\\n}"
+            },
+            "url": {
+              "raw": "{{apiUrl}}/contact/subscribe",
+              "host": ["{{apiUrl}}"],
+              "path": ["contact", "subscribe"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Unsubscribe",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{apiUrl}}/contact/unsubscribe?email=subscriber@example.com",
+              "host": ["{{apiUrl}}"],
+              "path": ["contact", "unsubscribe"],
+              "query": [
+                {
+                  "key": "email",
+                  "value": "subscriber@example.com"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Error Cases",
+      "item": [
+        {
+          "name": "Invalid Project ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{apiUrl}}/portfolio/projects/999",
+              "host": ["{{apiUrl}}"],
+              "path": ["portfolio", "projects", "999"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Invalid Message Data",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\\n  \\\"name\\\": \\\"\\\",\\n  \\\"email\\\": \\\"invalid-email\\\",\\n  \\\"subject\\\": \\\"\\\",\\n  \\\"message\\\": \\\"\\\"\\n}"
+            },
+            "url": {
+              "raw": "{{apiUrl}}/contact/message",
+              "host": ["{{apiUrl}}"],
+              "path": ["contact", "message"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Nonexistent Endpoint",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{apiUrl}}/nonexistent",
+              "host": ["{{apiUrl}}"],
+              "path": ["nonexistent"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Set timestamp for requests",
+          "pm.globals.set('timestamp', Date.now());"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Global tests for all requests",
+          "pm.test('Response time is less than 1000ms', function () {",
+          "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+          "});",
+          "",
+          "pm.test('Response has correct content type', function () {",
+          "    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+          "});"
+        ]
+      }
+    }
+  ]
+}

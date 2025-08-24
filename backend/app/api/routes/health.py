@@ -3,6 +3,7 @@ Health check endpoints.
 Простые роуты для проверки статуса API.
 """
 
+from typing import Dict, Any
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
@@ -12,7 +13,7 @@ router = APIRouter()
 
 
 @router.get("/")
-async def health_check() -> dict[str, str]:
+async def health_check() -> Dict[str, str]:
     """
     Простая проверка что API живое.
     """
@@ -20,7 +21,7 @@ async def health_check() -> dict[str, str]:
 
 
 @router.get("/db")
-def health_check_db(db: Session = Depends(get_sync_session)) -> dict[str, str]:
+def health_check_db(db: Session = Depends(get_sync_session)) -> Dict[str, str]:
     """
     Проверяем подключение к базе данных.
     """
@@ -33,7 +34,7 @@ def health_check_db(db: Session = Depends(get_sync_session)) -> dict[str, str]:
 
 
 @router.get("/detailed")
-async def detailed_health_check() -> dict[str, any]:
+async def detailed_health_check() -> Dict[str, Any]:
     """
     Детальная информация о состоянии сервиса.
     """
