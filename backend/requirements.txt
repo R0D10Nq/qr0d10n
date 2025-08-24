@@ -17,7 +17,7 @@ hiredis==2.2.3
 celery[redis]==5.3.4
 
 # HTTP клиент
-httpx==0.25.2
+httpx==0.28.1
 aiofiles==23.2.1
 
 # Безопасность
@@ -41,7 +41,7 @@ structlog==23.2.0
 pytest==7.4.3
 pytest-asyncio==0.23.2
 pytest-cov==4.1.0
-httpx==0.25.2
+httpx==0.28.1
 
 # Линтеры и форматеры
 ruff==0.1.6
