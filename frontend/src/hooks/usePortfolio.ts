@@ -6,16 +6,10 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { portfolioAPI, contactAPI, healthAPI } from '../services/api';
 import type {
-  Portfolio,
-  Project,
   ProjectFilters,
-  Experience,
-  Technology,
   TechnologyFilters,
-  PersonalInfo,
   ContactMessage,
   NewsletterSubscriber,
-  PortfolioStats,
 } from '../types';
 
 // Ключи для React Query cache
@@ -90,8 +84,6 @@ export const usePortfolioStats = () => {
 
 // Хуки для контактов
 export const useSendMessage = () => {
-  const queryClient = useQueryClient();
-  
   return useMutation({
     mutationFn: (message: ContactMessage) => contactAPI.sendMessage(message),
     onSuccess: () => {
@@ -105,8 +97,6 @@ export const useSendMessage = () => {
 };
 
 export const useSubscribe = () => {
-  const queryClient = useQueryClient();
-  
   return useMutation({
     mutationFn: (subscriber: NewsletterSubscriber) => contactAPI.subscribe(subscriber),
     onSuccess: () => {

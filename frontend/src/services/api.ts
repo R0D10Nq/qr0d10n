@@ -51,6 +51,17 @@ apiClient.interceptors.response.use(
 );
 
 // Mock данные для GitHub Pages
+const mockTechnologies: Technology[] = [
+  { id: 1, name: 'Python', category: 'backend', color: '#3776ab', is_active: true },
+  { id: 2, name: 'Django', category: 'backend', color: '#092e20', is_active: true },
+  { id: 3, name: 'FastAPI', category: 'backend', color: '#009688', is_active: true },
+  { id: 4, name: 'React', category: 'frontend', color: '#61dafb', is_active: true },
+  { id: 5, name: 'TypeScript', category: 'frontend', color: '#3178c6', is_active: true },
+  { id: 6, name: 'PostgreSQL', category: 'database', color: '#336791', is_active: true },
+  { id: 7, name: 'Redis', category: 'database', color: '#dc382d', is_active: true },
+  { id: 8, name: 'Docker', category: 'devops', color: '#2496ed', is_active: true },
+];
+
 const mockData = {
   personalInfo: {
     id: 1,
@@ -73,16 +84,7 @@ const mockData = {
     updated_at: new Date().toISOString(),
   } as PersonalInfo,
 
-  technologies: [
-    { id: 1, name: 'Python', category: 'backend', color: '#3776ab', is_active: true },
-    { id: 2, name: 'Django', category: 'backend', color: '#092e20', is_active: true },
-    { id: 3, name: 'FastAPI', category: 'backend', color: '#009688', is_active: true },
-    { id: 4, name: 'React', category: 'frontend', color: '#61dafb', is_active: true },
-    { id: 5, name: 'TypeScript', category: 'frontend', color: '#3178c6', is_active: true },
-    { id: 6, name: 'PostgreSQL', category: 'database', color: '#336791', is_active: true },
-    { id: 7, name: 'Redis', category: 'database', color: '#dc382d', is_active: true },
-    { id: 8, name: 'Docker', category: 'devops', color: '#2496ed', is_active: true },
-  ] as Technology[],
+  technologies: mockTechnologies,
 
   projects: [
     {
@@ -98,7 +100,7 @@ const mockData = {
       stars_count: 20,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
-      technologies: [mockData.technologies[0], mockData.technologies[3], mockData.technologies[4]],
+      technologies: [mockTechnologies[0], mockTechnologies[3], mockTechnologies[4]],
     },
     {
       id: 2,
@@ -112,7 +114,7 @@ const mockData = {
       stars_count: 15,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
-      technologies: [mockData.technologies[1], mockData.technologies[5], mockData.technologies[6]],
+      technologies: [mockTechnologies[1], mockTechnologies[5], mockTechnologies[6]],
     },
   ] as Project[],
 

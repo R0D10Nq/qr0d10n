@@ -8,7 +8,7 @@ import { LoadingScreen, ErrorState, EmptyState } from '../components/Loading';
 import type { ProjectFilters as ProjectFiltersType } from '../types';
 
 const ProjectsPage: React.FC = () => {
-  const [filters, setFilters] = useState<ProjectFiltersType>({
+  const [filters] = useState<ProjectFiltersType>({
     page: 1,
     per_page: 9,
   });
