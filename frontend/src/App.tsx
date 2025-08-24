@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar';
@@ -72,13 +72,10 @@ const queryClient = new QueryClient({
 });
 
 function App() {
-  // Определяем basename для GitHub Pages
-  const basename = '/qr0d10n';
-  
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
-        <Router basename={basename}>
+        <Router>
           <motion.div 
             className="min-h-screen flex flex-col bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100"
             initial={{ opacity: 0 }}
