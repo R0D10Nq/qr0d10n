@@ -1,137 +1,150 @@
 /**
- * Секция технологий и навыков.
+ * Секция технологий, разбитых по категориям как в эталонном портфолио.
  */
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { useTechnologies } from '../../hooks/usePortfolio';
-import { TechnologyBadgeSkeleton } from '../Loading';
-import { TECHNOLOGY_CATEGORIES } from '../../types';
-import {
-  fadeIn,
-  slideFromLeft,
-  staggerContainer,
-  staggerItem,
-  hoverScale
-} from '../../utils/animations';
+import { technologiesByCategory } from '../../data/portfolioData';
+
+interface TechCategoryProps {
+  title: string;
+  description: string;
+  technologies: Array<{ name: string; color: string }>;
+  delay: number;
+}
+
+const TechCategory: React.FC<TechCategoryProps> = ({ title, description, technologies, delay }) => {
+  return (
+    <motion.div
+      className="space-y-6"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay }}
+      viewport={{ once: true }}
+    >
+      <div>
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
+          {title}
+        </h3>
+        <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+          {description}
+        </p>
+      </div>
+      
+      <div className="flex flex-wrap gap-3">
+        {technologies.map((tech, index) => (
+          <motion.span
+            key={tech.name}
+            className="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full text-sm font-medium text-gray-900 dark:text-gray-100 transition-all duration-200 cursor-pointer"
+            style={{ 
+              borderColor: `${tech.color}20`,
+            }}
+            whileHover={{ 
+              scale: 1.05,
+              borderColor: tech.color,
+            }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3, delay: delay + index * 0.1 }}
+            viewport={{ once: true }}
+          >
+            <span 
+              className="w-2 h-2 rounded-full mr-2" 
+              style={{ backgroundColor: tech.color }}
+            />
+            {tech.name}
+          </motion.span>
+        ))}
+      </div>
+    </motion.div>
+  );
+};
 
 const TechnologiesSection: React.FC = () => {
-  const { data: technologies, isLoading } = useTechnologies();
-
-  // Группируем технологии по категориям
-  const groupedTechnologies = technologies?.reduce((acc, tech) => {
-    if (!acc[tech.category]) {
-      acc[tech.category] = [];
-    }
-    acc[tech.category].push(tech);
-    return acc;
-  }, {} as Record<string, typeof technologies>);
-
-  const categoryLabels = {
-    [TECHNOLOGY_CATEGORIES.BACKEND]: 'Backend',
-    [TECHNOLOGY_CATEGORIES.FRONTEND]: 'Frontend',
-    [TECHNOLOGY_CATEGORIES.DATABASE]: 'Базы данных',
-    [TECHNOLOGY_CATEGORIES.DEVOPS]: 'DevOps',
-    [TECHNOLOGY_CATEGORIES.TOOLS]: 'Инструменты',
-    [TECHNOLOGY_CATEGORIES.TESTING]: 'Тестирование',
-  };
+  const categories = [
+    {
+      title: 'Backend Development',
+      description: 'Создание надёжных API и серверной логики с акцентом на производительность и масштабируемость',
+      technologies: technologiesByCategory.backend.map(tech => ({ name: tech.name, color: tech.color || '#6366f1' })),
+    },
+    {
+      title: 'Frontend Development', 
+      description: 'Современные пользовательские интерфейсы с фокусом на UX и производительность',
+      technologies: technologiesByCategory.frontend.map(tech => ({ name: tech.name, color: tech.color || '#6366f1' })),
+    },
+    {
+      title: 'Database & Cache',
+      description: 'Проектирование и оптимизация баз данных, кэширование для высокой производительности',
+      technologies: technologiesByCategory.database.map(tech => ({ name: tech.name, color: tech.color || '#6366f1' })),
+    },
+    {
+      title: 'DevOps & Infrastructure',
+      description: 'Автоматизация развёртывания и мониторинг production-систем',
+      technologies: technologiesByCategory.devops.map(tech => ({ name: tech.name, color: tech.color || '#6366f1' })),
+    },
+    {
+      title: 'Quality Assurance',
+      description: 'Обеспечение качества кода через тестирование и статический анализ',
+      technologies: technologiesByCategory.testing.map(tech => ({ name: tech.name, color: tech.color || '#6366f1' })),
+    },
+    {
+      title: 'AI & Automation',
+      description: 'Интеграция LLM и автоматизация рутинных процессов',
+      technologies: technologiesByCategory.ai.map(tech => ({ name: tech.name, color: tech.color || '#6366f1' })),
+    },
+  ];
 
   return (
-    <motion.section 
-      id="technologies" 
-      className="section bg-gray-50 dark:bg-gray-900"
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-100px" }}
-      variants={fadeIn}
-    >
+    <section id="technologies" className="section bg-gray-50 dark:bg-gray-900">
       <div className="container-custom">
-        <motion.h2 
-          className="section-title"
-          variants={slideFromLeft}
-          initial="hidden"
-          whileInView="visible"
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          Технологии и навыки
-        </motion.h2>
-        
-        {isLoading ? (
-          <div className="space-y-8">
-            {Array.from({ length: 4 }).map((_, categoryIndex) => (
-              <div key={categoryIndex}>
-                <div className="h-6 w-32 bg-gray-200 dark:bg-gray-700 rounded mb-4"></div>
-                <div className="flex flex-wrap gap-3">
-                  {Array.from({ length: 6 }).map((_, techIndex) => (
-                    <TechnologyBadgeSkeleton key={techIndex} />
-                  ))}
-                </div>
-              </div>
-            ))}
+          <h2 className="section-title">Технологии и навыки</h2>
+          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+            Более 3 лет опыта разработки на Python/Django. Специализируюсь на backend-разработке, 
+            но также владею frontend-технологиями и DevOps-практиками.
+          </p>
+        </motion.div>
+
+        <div className="space-y-12">
+          {categories.map((category, index) => (
+            <TechCategory
+              key={category.title}
+              title={category.title}
+              description={category.description}
+              technologies={category.technologies}
+              delay={index * 0.1}
+            />
+          ))}
+        </div>
+
+        {/* Код секция внизу */}
+        <motion.div
+          className="mt-16 bg-gray-900 dark:bg-gray-800 rounded-xl p-8 font-mono text-sm overflow-hidden"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <div className="text-green-400 mb-4">
+            rodion@workstation:~/projects$ cat main_stack.py
           </div>
-        ) : (
-          <motion.div 
-            className="space-y-8"
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-          >
-            {Object.entries(groupedTechnologies || {}).map(([category, techs], categoryIndex) => (
-              <motion.div 
-                key={category}
-                variants={staggerItem}
-              >
-                <motion.h3 
-                  className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4"
-                  initial={{ opacity: 0, x: -30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: categoryIndex * 0.1, duration: 0.5 }}
-                  viewport={{ once: true }}
-                >
-                  {categoryLabels[category as keyof typeof categoryLabels] || category}
-                </motion.h3>
-                <motion.div 
-                  className="flex flex-wrap gap-3"
-                  variants={staggerContainer}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                >
-                  {techs.map((tech) => (
-                    <motion.span
-                      key={tech.id}
-                      className="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full text-sm font-medium text-gray-900 dark:text-gray-100 hover:border-primary-300 dark:hover:border-primary-600 transition-colors cursor-pointer"
-                      style={{
-                        borderColor: tech.color ? `${tech.color}20` : undefined,
-                      }}
-                      variants={staggerItem}
-                      {...hoverScale}
-                      whileHover={{ 
-                        scale: 1.05,
-                        borderColor: tech.color || 'rgb(var(--color-primary-300))',
-                        backgroundColor: tech.color ? `${tech.color}10` : undefined
-                      }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      {tech.color && (
-                        <motion.span
-                          className="w-2 h-2 rounded-full mr-2"
-                          style={{ backgroundColor: tech.color }}
-                          whileHover={{ scale: 1.2 }}
-                          transition={{ duration: 0.2 }}
-                        />
-                      )}
-                      {tech.name}
-                    </motion.span>
-                  ))}
-                </motion.div>
-              </motion.div>
-            ))}
-          </motion.div>
-        )}
+          <div className="space-y-1 text-gray-300">
+            <div><span className="text-blue-400">01</span> <span className="text-purple-400">class</span> <span className="text-yellow-400">Developer</span>:</div>
+            <div><span className="text-blue-400">02</span> &nbsp;&nbsp;<span className="text-purple-400">def</span> <span className="text-yellow-400">__init__</span>(<span className="text-red-400">self</span>, <span className="text-cyan-400">name</span>=<span className="text-green-300">'Rodion Shevtsov'</span>):</div>
+            <div><span className="text-blue-400">03</span> &nbsp;&nbsp;&nbsp;&nbsp;<span className="text-red-400">self</span>.<span className="text-cyan-400">languages</span> = [<span className="text-green-300">'Python'</span>, <span className="text-green-300">'JavaScript'</span>, <span className="text-green-300">'TypeScript'</span>]</div>
+            <div><span className="text-blue-400">04</span> &nbsp;&nbsp;&nbsp;&nbsp;<span className="text-red-400">self</span>.<span className="text-cyan-400">frameworks</span> = [<span className="text-green-300">'Django'</span>, <span className="text-green-300">'FastAPI'</span>, <span className="text-green-300">'Vue.js'</span>, <span className="text-green-300">'React'</span>]</div>
+            <div><span className="text-blue-400">05</span> &nbsp;&nbsp;&nbsp;&nbsp;<span className="text-red-400">self</span>.<span className="text-cyan-400">experience_years</span> = <span className="text-orange-400">3+</span></div>
+            <div><span className="text-blue-400">06</span> &nbsp;&nbsp;&nbsp;&nbsp;<span className="text-red-400">self</span>.<span className="text-cyan-400">goal</span> = <span className="text-green-300">'Senior FullStack Developer'</span></div>
+          </div>
+        </motion.div>
       </div>
-    </motion.section>
+    </section>
   );
 };
 

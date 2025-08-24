@@ -1,14 +1,16 @@
 /**
  * Главная страница портфолио.
- * Содержит hero секцию, информацию о себе, опыт работы, проекты и навыки.
+ * Содержит все основные секции в стиле эталонного портфолио.
  */
 
 import React from 'react';
 import HeroSection from '../components/sections/HeroSection';
+import TerminalSection from '../components/sections/TerminalSection';
 import AboutSection from '../components/sections/AboutSection';
 import ExperienceSection from '../components/sections/ExperienceSection';
-import ProjectsSection from '../components/sections/ProjectsSection';
 import TechnologiesSection from '../components/sections/TechnologiesSection';
+import ProjectsSection from '../components/sections/ProjectsSection';
+import AchievementsSection from '../components/sections/AchievementsSection';
 import StatsSection from '../components/sections/StatsSection';
 
 const HomePage: React.FC = () => {
@@ -17,20 +19,26 @@ const HomePage: React.FC = () => {
       {/* Hero секция */}
       <HeroSection />
       
-      {/* Статистика */}
-      <StatsSection />
+      {/* Киберпанк терминал */}
+      <TerminalSection />
       
-      {/* О себе */}
+      {/* О себе с личной историей */}
       <AboutSection />
       
       {/* Опыт работы */}
       <ExperienceSection />
       
+      {/* Технологии по категориям */}
+      <TechnologiesSection />
+      
       {/* Избранные проекты */}
       <ProjectsSection />
       
-      {/* Технологии */}
-      <TechnologiesSection />
+      {/* Достижения с метриками */}
+      <AchievementsSection />
+      
+      {/* Статистика */}
+      <StatsSection />
     </div>
   );
 };

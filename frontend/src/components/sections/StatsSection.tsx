@@ -4,8 +4,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { usePortfolioStats } from '../../hooks/usePortfolio';
-import { LoadingSpinner } from '../Loading';
+import { portfolioStats } from '../../data/portfolioData';
 import {
   fadeIn,
   staggerContainer,
@@ -53,40 +52,27 @@ const AnimatedCounter: React.FC<{ value: number; suffix?: string; duration?: num
 };
 
 const StatsSection: React.FC = () => {
-  const { data: stats, isLoading } = usePortfolioStats();
-
-  if (isLoading) {
-    return (
-      <motion.section 
-        className="py-16 bg-white dark:bg-gray-950"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <div className="container-custom text-center">
-          <LoadingSpinner size="lg" />
-        </div>
-      </motion.section>
-    );
-  }
-
   const statItems = [
     {
       label: 'Лет опыта',
-      value: stats?.years_of_experience || 3,
+      value: portfolioStats.years_of_experience,
       suffix: '+',
+      icon: '📅',
     },
     {
       label: 'Проектов',
-      value: stats?.projects_total || 0,
+      value: portfolioStats.projects_total,
+      icon: '🛠️',
     },
     {
       label: 'Технологий',
-      value: stats?.technologies_total || 0,
+      value: portfolioStats.technologies_total,
+      icon: '⚡',
     },
     {
-      label: 'GitHub звезд',
-      value: stats?.github_stars_total || 0,
+      label: 'GitHub звёзд',
+      value: portfolioStats.github_stars_total,
+      icon: '⭐',
     },
   ];
 
@@ -109,11 +95,19 @@ const StatsSection: React.FC = () => {
           {statItems.map((item, index) => (
             <motion.div 
               key={index} 
-              className="text-center"
+              className="text-center group cursor-pointer"
               variants={staggerItem}
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.2 }}
+              whileHover={{ scale: 1.05, y: -5 }}
+              transition={{ duration: 0.3 }}
             >
+              <motion.div
+                className="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300"
+                initial={{ rotateY: 0 }}
+                whileHover={{ rotateY: 360 }}
+                transition={{ duration: 0.6 }}
+              >
+                {item.icon}
+              </motion.div>
               <AnimatedCounter 
                 value={item.value} 
                 suffix={item.suffix} 
@@ -130,6 +124,20 @@ const StatsSection: React.FC = () => {
               </motion.div>
             </motion.div>
           ))}
+        </motion.div>
+
+        {/* Дополнительная информация */}
+        <motion.div
+          className="mt-12 text-center"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          viewport={{ once: true }}
+        >
+          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            От мечтающего о программировании школьника до опытного <strong>Python/Fullstack разработчика</strong>. 
+            Каждый проект — это новые знания и реальные результаты.
+          </p>
         </motion.div>
       </div>
     </motion.section>

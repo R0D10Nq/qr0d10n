@@ -101,3 +101,6 @@ jspm_packages/
 # Temporary folders
 tmp/
 temp/
+
+# etc
+full_resume.md

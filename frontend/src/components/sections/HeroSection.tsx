@@ -5,8 +5,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ChevronDown, Download, Mail } from 'lucide-react';
-import { usePersonalInfo } from '../../hooks/usePortfolio';
-import { LoadingSpinner } from '../Loading';
+import { personalInfo } from '../../data/portfolioData';
 import {
   fadeIn,
   slideUp,
@@ -18,16 +17,6 @@ import {
 } from '../../utils/animations';
 
 const HeroSection: React.FC = () => {
-  const { data: personalInfo, isLoading } = usePersonalInfo();
-
-  if (isLoading) {
-    return (
-      <section className="h-screen-safe flex items-center justify-center">
-        <LoadingSpinner size="lg" />
-      </section>
-    );
-  }
-
   return (
     <motion.section 
       className="h-screen-safe flex items-center justify-center gradient-bg"
@@ -43,21 +32,19 @@ const HeroSection: React.FC = () => {
           animate="visible"
         >
           {/* Аватар */}
-          {personalInfo?.avatar_url && (
-            <motion.div 
-              className="flex justify-center"
-              variants={staggerItem}
-            >
-              <motion.img
-                src={personalInfo.avatar_url}
-                alt={personalInfo.name}
-                className="w-32 h-32 rounded-full border-4 border-white dark:border-gray-800 shadow-xl"
-                variants={scaleIn}
-                whileHover={{ scale: 1.1 }}
-                transition={{ duration: 0.3 }}
-              />
-            </motion.div>
-          )}
+          <motion.div 
+            className="flex justify-center"
+            variants={staggerItem}
+          >
+            <motion.img
+              src={personalInfo.avatar_url}
+              alt={personalInfo.name}
+              className="w-32 h-32 rounded-full border-4 border-white dark:border-gray-800 shadow-xl"
+              variants={scaleIn}
+              whileHover={{ scale: 1.1 }}
+              transition={{ duration: 0.3 }}
+            />
+          </motion.div>
 
           {/* Приветствие */}
           <motion.div 
@@ -75,7 +62,7 @@ const HeroSection: React.FC = () => {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5, duration: 0.8 }}
               >
-                {personalInfo?.name || 'Родион'}
+                {personalInfo.name}
               </motion.span>
             </motion.h1>
             
@@ -84,7 +71,7 @@ const HeroSection: React.FC = () => {
               variants={fadeIn}
               transition={{ delay: 0.3 }}
             >
-              {personalInfo?.title || 'Python / Backend Fullstack Developer'}
+              {personalInfo.title}
             </motion.h2>
             
             <motion.p 
@@ -92,26 +79,23 @@ const HeroSection: React.FC = () => {
               variants={fadeIn}
               transition={{ delay: 0.4 }}
             >
-              {personalInfo?.bio?.split('\n')[0] || 
-               'Middle Python / Fullstack разработчик из Томска с опытом более 3 лет.'}
+              {personalInfo.bio}
             </motion.p>
           </motion.div>
 
           {/* Статус доступности */}
-          {personalInfo?.is_available_for_hire && (
-            <motion.div 
-              className="inline-flex items-center px-4 py-2 bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-400 rounded-full text-sm font-medium"
-              variants={staggerItem}
-              {...hoverScale}
-            >
-              <motion.span 
-                className="w-2 h-2 bg-green-500 rounded-full mr-2"
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ repeat: Infinity, duration: 1.5 }}
-              ></motion.span>
-              Открыт к предложениям
-            </motion.div>
-          )}
+          <motion.div 
+            className="inline-flex items-center px-4 py-2 bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-400 rounded-full text-sm font-medium"
+            variants={staggerItem}
+            {...hoverScale}
+          >
+            <motion.span 
+              className="w-2 h-2 bg-green-500 rounded-full mr-2"
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ repeat: Infinity, duration: 1.5 }}
+            ></motion.span>
+            Открыт к предложениям
+          </motion.div>
 
           {/* Кнопки действий */}
           <motion.div 
@@ -128,19 +112,17 @@ const HeroSection: React.FC = () => {
               <span>Связаться со мной</span>
             </motion.a>
             
-            {personalInfo?.resume_url && (
-              <motion.a
-                href={personalInfo.resume_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-outline flex items-center space-x-2"
-                {...hoverScale}
-                {...hoverLift}
-              >
-                <Download className="w-5 h-5" />
-                <span>Скачать резюме</span>
-              </motion.a>
-            )}
+            <motion.a
+              href="/full_resume.md"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-outline flex items-center space-x-2"
+              {...hoverScale}
+              {...hoverLift}
+            >
+              <Download className="w-5 h-5" />
+              <span>Скачать резюме</span>
+            </motion.a>
           </motion.div>
 
           {/* Социальные ссылки */}
@@ -148,40 +130,34 @@ const HeroSection: React.FC = () => {
             className="flex items-center justify-center space-x-6"
             variants={staggerItem}
           >
-            {personalInfo?.github_url && (
-              <motion.a
-                href={personalInfo.github_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-                whileHover={{ y: -2 }}
-                transition={{ duration: 0.2 }}
-              >
-                GitHub
-              </motion.a>
-            )}
-            {personalInfo?.telegram_url && (
-              <motion.a
-                href={personalInfo.telegram_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-                whileHover={{ y: -2 }}
-                transition={{ duration: 0.2 }}
-              >
-                Telegram
-              </motion.a>
-            )}
-            {personalInfo?.email && (
-              <motion.a
-                href={`mailto:${personalInfo.email}`}
-                className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-                whileHover={{ y: -2 }}
-                transition={{ duration: 0.2 }}
-              >
-                Email
-              </motion.a>
-            )}
+            <motion.a
+              href={personalInfo.github_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+              whileHover={{ y: -2 }}
+              transition={{ duration: 0.2 }}
+            >
+              GitHub
+            </motion.a>
+            <motion.a
+              href={personalInfo.telegram_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+              whileHover={{ y: -2 }}
+              transition={{ duration: 0.2 }}
+            >
+              Telegram
+            </motion.a>
+            <motion.a
+              href={`mailto:${personalInfo.email}`}
+              className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+              whileHover={{ y: -2 }}
+              transition={{ duration: 0.2 }}
+            >
+              Email
+            </motion.a>
           </motion.div>
         </motion.div>
 
