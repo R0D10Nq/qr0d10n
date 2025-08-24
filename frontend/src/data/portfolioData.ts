@@ -197,7 +197,7 @@ export const projects: Project[] = [
       technologiesByCategory.backend[1], // Django
       technologiesByCategory.database[1], // PostGIS
       technologiesByCategory.database[2], // Redis
-      technologiesByCategory.frontend[12], // Vue.js
+      technologiesByCategory.frontend[2], // Vue.js
     ],
   },
   {
@@ -235,9 +235,9 @@ export const projects: Project[] = [
     updated_at: '2025-08-20T00:00:00Z',
     technologies: [
       technologiesByCategory.backend[1], // Django
-      technologiesByCategory.frontend[14], // JavaScript ES6+
-      technologiesByCategory.frontend[16], // SCSS
-      technologiesByCategory.frontend[17], // Vite
+      technologiesByCategory.frontend[3], // JavaScript ES6+
+      technologiesByCategory.frontend[5], // SCSS
+      technologiesByCategory.frontend[7], // Vite
     ],
   },
   {
@@ -256,7 +256,7 @@ export const projects: Project[] = [
     technologies: [
       technologiesByCategory.backend[3], // FastAPI
       technologiesByCategory.database[4], // SQLite
-      technologiesByCategory.frontend[12], // Vue.js
+      technologiesByCategory.frontend[2], // Vue.js
     ],
   },
   {
@@ -273,7 +273,7 @@ export const projects: Project[] = [
     created_at: '2024-07-01T00:00:00Z',
     updated_at: '2025-08-24T00:00:00Z',
     technologies: [
-      technologiesByCategory.frontend[12], // Vue.js
+      technologiesByCategory.frontend[2], // Vue.js
       technologiesByCategory.ai[0], // ChatGPT
       technologiesByCategory.ai[4], // Telegram bots
     ],

@@ -1,63 +1,26 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Navbar from './components/Navbar';
 import HomePage from './pages/HomePage';
 import ProjectsPage from './pages/ProjectsPage';
 import ContactPage from './pages/ContactPage';
 import Footer from './components/Footer';
 import ThemeProvider from './providers/ThemeProvider';
-import { pageTransition } from './utils/animations';
+// import { pageTransition } from './utils/animations';
 import './App.css';
+
 
 // Компонент для анимаций переходов между страницами
 const AnimatedRoutes = () => {
   const location = useLocation();
   
   return (
-    <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
-        <Route 
-          path="/" 
-          element={
-            <motion.div
-              variants={pageTransition}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-            >
-              <HomePage />
-            </motion.div>
-          } 
-        />
-        <Route 
-          path="/projects" 
-          element={
-            <motion.div
-              variants={pageTransition}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-            >
-              <ProjectsPage />
-            </motion.div>
-          } 
-        />
-        <Route 
-          path="/contact" 
-          element={
-            <motion.div
-              variants={pageTransition}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-            >
-              <ContactPage />
-            </motion.div>
-          } 
-        />
-      </Routes>
-    </AnimatePresence>
+    <Routes location={location} key={location.pathname}>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/projects" element={<ProjectsPage />} />
+      <Route path="/contact" element={<ContactPage />} />
+    </Routes>
   );
 };
 

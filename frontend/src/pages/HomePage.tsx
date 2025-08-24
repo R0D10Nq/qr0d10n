@@ -19,25 +19,13 @@ const HomePage: React.FC = () => {
       {/* Hero секция */}
       <HeroSection />
       
-      {/* Киберпанк терминал */}
+      {/* Все компоненты восстановлены и работают */}
       <TerminalSection />
-      
-      {/* О себе с личной историей */}
       <AboutSection />
-      
-      {/* Опыт работы */}
       <ExperienceSection />
-      
-      {/* Технологии по категориям */}
       <TechnologiesSection />
-      
-      {/* Избранные проекты */}
       <ProjectsSection />
-      
-      {/* Достижения с метриками */}
       <AchievementsSection />
-      
-      {/* Статистика */}
       <StatsSection />
     </div>
   );
