@@ -1,6 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  /* Cyberpunk color scheme - Dark by default */
+  --primary: #00d4ff;
+  --primary-foreground: #000000;
+  --secondary: #ff6b35;
+  --secondary-foreground: #000000;
+  --accent: #ff0080;
+  --accent-foreground: #ffffff;
+  --background: #0a0a0a;
+  --foreground: #ffffff;
+  --muted: #1a1a1a;
+  --muted-foreground: #a1a1aa;
+  --border: #27272a;
+  --card: #1a1a1a;
+  --card-foreground: #ffffff;
+  
+  /* Cyberpunk specific colors */
+  --neon-cyan: #00d4ff;
+  --neon-orange: #ff6b35;
+  --neon-magenta: #ff0080;
+  --neon-green: #00ff41;
+  --terminal-green: #00ff00;
+  --matrix-green: #0f3460;
+  --cyber-dark: #0a0a0a;
+  --cyber-darker: #050505;
+  --cyber-gray: #1a1a1a;
+  --cyber-border: #333333;
+}
+
+.light {
+  /* Light theme fallback */
+  --primary: #0071bb;
+  --primary-foreground: #ffffff;
+  --secondary: #f05a24;
+  --secondary-foreground: #ffffff;
+  --accent: #c0272d;
+  --accent-foreground: #ffffff;
+  --background: #ffffff;
+  --foreground: #1a1a1a;
+  --muted: #f8fafc;
+  --muted-foreground: #64748b;
+  --border: #e2e8f0;
+  --card: #ffffff;
+  --card-foreground: #1a1a1a;
+}
 
 /* Кастомные стили для портфолио */
 @layer base {
@@ -79,31 +127,127 @@
   }
 }
 
-/* Кастомные анимации */
-@keyframes float {
+/* Cyberpunk Animations */
+@keyframes glitch {
+  0%, 100% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+}
+
+@keyframes neon-glow {
   0%, 100% {
-    transform: translateY(0px);
+    text-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan), 0 0 15px var(--neon-cyan);
   }
   50% {
-    transform: translateY(-10px);
+    text-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan), 0 0 30px var(--neon-cyan);
   }
 }
 
-@keyframes glow {
-  0%, 100% {
-    box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
-  }
-  50% {
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.8);
-  }
+@keyframes matrix-rain {
+  0% { transform: translateY(-100vh); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+@keyframes scan-line {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100vw); }
+}
+
+@keyframes hologram {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.02); }
+}
+
+@keyframes circuit-flow {
+  0% { stroke-dashoffset: 100; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes terminal-cursor {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Cyberpunk Animation Classes */
+.animate-glitch {
+  animation: glitch 0.3s ease-in-out infinite alternate;
+}
+
+.animate-neon-glow {
+  animation: neon-glow 2s ease-in-out infinite;
+}
+
+.animate-matrix-rain {
+  animation: matrix-rain 3s linear infinite;
+}
+
+.animate-scan-line {
+  animation: scan-line 2s linear infinite;
+}
+
+.animate-hologram {
+  animation: hologram 3s ease-in-out infinite;
+}
+
+.animate-circuit-flow {
+  animation: circuit-flow 2s ease-in-out infinite;
+}
+
+.animate-terminal-cursor {
+  animation: terminal-cursor 1s infinite;
 }
 
 .animate-float {
   animation: float 3s ease-in-out infinite;
 }
 
-.animate-glow {
-  animation: glow 2s ease-in-out infinite;
+/* Cyberpunk Effects */
+.cyber-border {
+  border: 1px solid var(--neon-cyan);
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+}
+
+.cyber-glow {
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+}
+
+.terminal-font {
+  font-family: 'Space Mono', monospace;
+}
+
+.glitch-text {
+  position: relative;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch-text::before {
+  animation: glitch 0.3s ease-in-out infinite alternate;
+  color: var(--neon-magenta);
+  z-index: -1;
+}
+
+.glitch-text::after {
+  animation: glitch 0.3s ease-in-out infinite alternate-reverse;
+  color: var(--neon-cyan);
+  z-index: -2;
 }
 
 /* Стили для скроллбара */
