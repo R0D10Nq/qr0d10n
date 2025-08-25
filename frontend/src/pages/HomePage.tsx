@@ -4,29 +4,48 @@
  */
 
 import React from 'react';
-import HeroSection from '../components/sections/HeroSection';
-import TerminalSection from '../components/sections/TerminalSection';
-import AboutSection from '../components/sections/AboutSection';
-import ExperienceSection from '../components/sections/ExperienceSection';
-import TechnologiesSection from '../components/sections/TechnologiesSection';
+import CyberHeroSection from '../components/sections/CyberHeroSection';
+import CyberTechStack from '../components/sections/CyberTechStack';
+import CyberJourney from '../components/sections/CyberJourney';
 import ProjectsSection from '../components/sections/ProjectsSection';
-import AchievementsSection from '../components/sections/AchievementsSection';
-import StatsSection from '../components/sections/StatsSection';
+import CyberAchievements from '../components/sections/CyberAchievements';
+import CyberContactSection from '../components/sections/CyberContactSection';
+import SlideNavigation from '../components/ui/SlideNavigation';
 
 const HomePage: React.FC = () => {
+  const sections = [
+    'INITIALIZATION',
+    'TECH_STACK', 
+    'JOURNEY',
+    'PROJECTS',
+    'ACHIEVEMENTS',
+    'CONTACT'
+  ];
+
   return (
-    <div className="min-h-screen">
-      {/* Hero секция */}
-      <HeroSection />
+    <div className="min-h-screen bg-[var(--cyber-dark)] relative">
+      <div id="section-0">
+        <CyberHeroSection />
+      </div>
+      <div id="section-1">
+        <CyberTechStack />
+      </div>
+      <div id="section-2">
+        <CyberJourney />
+      </div>
+      <div id="section-3">
+        <ProjectsSection />
+      </div>
+      <div id="section-4">
+        <CyberAchievements />
+      </div>
+      <div id="section-5">
+        <CyberContactSection />
+      </div>
       
-      {/* Все компоненты восстановлены и работают */}
-      <TerminalSection />
-      <AboutSection />
-      <ExperienceSection />
-      <TechnologiesSection />
-      <ProjectsSection />
-      <AchievementsSection />
-      <StatsSection />
+      <SlideNavigation 
+        sections={sections}
+      />
     </div>
   );
 };
