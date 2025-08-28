@@ -54,7 +54,6 @@ jobs:
     - name: Run semantic-release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       run: semantic-release
       
   # Deploy to production after successful release
@@ -69,4 +68,4 @@ jobs:
     - name: Deploy to production
       run: |
         echo "🚀 Production deployment would go here"
-        echo "Portfolio version released: ${{ needs.release.outputs.version }}"
+        echo "Portfolio deployed successfully"

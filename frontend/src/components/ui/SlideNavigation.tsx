@@ -105,7 +105,7 @@ const SlideNavigation: React.FC<SlideNavigationProps> = ({ sections }) => {
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => setCurrentSection(Math.max(0, currentSection - 1))}
+              onClick={() => scrollToSection(Math.max(0, currentSection - 1))}
               disabled={currentSection === 0}
               className="p-2 rounded-full bg-[var(--cyber-dark)] border border-[var(--neon-cyan)] text-[var(--neon-cyan)] disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[var(--neon-cyan)] hover:text-black transition-all"
             >
@@ -133,7 +133,7 @@ const SlideNavigation: React.FC<SlideNavigationProps> = ({ sections }) => {
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => setCurrentSection(Math.min(sections.length - 1, currentSection + 1))}
+              onClick={() => scrollToSection(Math.min(sections.length - 1, currentSection + 1))}
               disabled={currentSection === sections.length - 1}
               className="p-2 rounded-full bg-[var(--cyber-dark)] border border-[var(--neon-cyan)] text-[var(--neon-cyan)] disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[var(--neon-cyan)] hover:text-black transition-all"
             >
