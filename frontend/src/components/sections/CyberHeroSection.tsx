@@ -104,7 +104,7 @@ const CyberHeroSection: React.FC = () => {
               <div className="w-32 h-32 md:w-80 md:h-80 rounded-full cyber-border bg-gradient-to-br from-[var(--neon-cyan)]/20 to-[var(--neon-magenta)]/20 backdrop-blur-sm p-1 group-hover:cyber-glow transition-all duration-300">
                 <div className="w-full h-full rounded-full bg-gradient-to-br from-[var(--cyber-dark)] to-black flex items-center justify-center overflow-hidden">
                   <img
-                    src="/photo.jpg"
+                    src="/qr0d10n/photo.jpg"
                     alt="Родион Шевцов"
                     className="w-full h-full object-cover rounded-full"
                   />
