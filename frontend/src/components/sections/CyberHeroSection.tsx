@@ -8,7 +8,7 @@ const CyberHeroSection: React.FC = () => {
 
   const texts = [
     'RODION_SHEVTSOV',
-    'PYTHON_DEVELOPER',
+    'PYTHON_DEVELOPER', 
     'BACKEND_ORIENTED',
     'FULLSTACK_FEATURES'
   ];
@@ -23,6 +23,7 @@ const CyberHeroSection: React.FC = () => {
         charIndex++;
       } else {
         clearInterval(typeInterval);
+        // wait a bit before next text
         setTimeout(() => {
           setCurrentIndex((prev) => (prev + 1) % texts.length);
         }, 2000);
@@ -34,7 +35,7 @@ const CyberHeroSection: React.FC = () => {
 
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-[var(--cyber-darker)] via-[var(--cyber-dark)] to-black">
-      {/* Grid Background */}
+      {/* background grid */}
       <div className="absolute inset-0 opacity-20">
         <div className="absolute inset-0" style={{
           backgroundImage: `
@@ -45,7 +46,7 @@ const CyberHeroSection: React.FC = () => {
         }} />
       </div>
 
-      {/* Floating Particles */}
+      {/* particles */}
       {[...Array(20)].map((_, i) => (
         <motion.div
           key={i}

@@ -167,7 +167,7 @@ const CyberJourney: React.FC = () => {
 
         {/* Holographic Grid */}
         <div className="absolute inset-0 bg-gradient-to-br from-[var(--neon-cyan)]/5 via-transparent to-[var(--neon-magenta)]/5" />
-        
+
         {/* Scan Lines */}
         <motion.div
           className="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--neon-cyan)]/10 to-transparent h-4"
@@ -210,16 +210,14 @@ const CyberJourney: React.FC = () => {
                 <div className={`w-5/12 ${index % 2 === 0 ? 'pr-8' : 'pl-8'}`}>
                   <motion.div
                     whileHover={{ scale: 1.05, rotateY: 5 }}
-                    className={`cyber-border bg-black/80 backdrop-blur-sm p-6 rounded-lg relative group ${
-                      step.status === 'active' ? 'cyber-glow' : ''
-                    }`}
+                    className={`cyber-border bg-black/80 backdrop-blur-sm p-6 rounded-lg relative group ${step.status === 'active' ? 'cyber-glow' : ''
+                      }`}
                   >
                     {/* Status Indicator */}
-                    <div className={`absolute -top-2 -right-2 w-4 h-4 rounded-full ${
-                      step.status === 'completed' ? 'bg-[var(--terminal-green)]' :
-                      step.status === 'active' ? 'bg-[var(--neon-orange)] animate-pulse' :
-                      'bg-[var(--cyber-gray)]'
-                    }`} />
+                    <div className={`absolute -top-2 -right-2 w-4 h-4 rounded-full ${step.status === 'completed' ? 'bg-[var(--terminal-green)]' :
+                        step.status === 'active' ? 'bg-[var(--neon-orange)] animate-pulse' :
+                          'bg-[var(--cyber-gray)]'
+                      }`} />
 
                     {/* Year Badge */}
                     <div className="flex items-center gap-2 mb-4">
@@ -285,11 +283,10 @@ const CyberJourney: React.FC = () => {
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.2 + 0.3 }}
                     whileHover={{ scale: 1.5, rotate: 180 }}
-                    className={`w-6 h-6 rounded-full border-4 relative z-10 ${
-                      step.status === 'completed' ? 'bg-[var(--terminal-green)] border-[var(--terminal-green)]' :
-                      step.status === 'active' ? 'bg-[var(--neon-orange)] border-[var(--neon-orange)] animate-pulse' :
-                      'bg-[var(--cyber-gray)] border-[var(--cyber-gray)]'
-                    }`}
+                    className={`w-6 h-6 rounded-full border-4 relative z-10 ${step.status === 'completed' ? 'bg-[var(--terminal-green)] border-[var(--terminal-green)]' :
+                        step.status === 'active' ? 'bg-[var(--neon-orange)] border-[var(--neon-orange)] animate-pulse' :
+                          'bg-[var(--cyber-gray)] border-[var(--cyber-gray)]'
+                      }`}
                   >
                     {step.status === 'active' && (
                       <motion.div

@@ -14,7 +14,7 @@ const MatrixRain: React.FC<MatrixRainProps> = ({ className = '' }) => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Set canvas size
+    // canvas sizing
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
@@ -22,7 +22,7 @@ const MatrixRain: React.FC<MatrixRainProps> = ({ className = '' }) => {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // Matrix characters
+    // chars for matrix effect
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()_+-=[]{}|;:,.<>?';
     const charArray = chars.split('');
 
@@ -30,17 +30,17 @@ const MatrixRain: React.FC<MatrixRainProps> = ({ className = '' }) => {
     const columns = canvas.width / fontSize;
     const drops: number[] = [];
 
-    // Initialize drops
+    // init drops
     for (let i = 0; i < columns; i++) {
       drops[i] = 1;
     }
 
     const draw = () => {
-      // Semi-transparent black background for trail effect
+      // bg with trail effect
       ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Matrix text
+      // green text
       ctx.fillStyle = '#00ff41';
       ctx.font = `${fontSize}px 'Space Mono', monospace`;
 

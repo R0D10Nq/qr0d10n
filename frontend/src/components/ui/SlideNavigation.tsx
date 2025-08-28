@@ -101,14 +101,16 @@ const SlideNavigation: React.FC<SlideNavigationProps> = ({ sections }) => {
           className="fixed bottom-6 left-[63.6%] transform -translate-x-1/2 z-50"
         >
           <div className="bg-black/90 backdrop-blur-sm border border-[var(--neon-cyan)] rounded-full px-6 py-3 flex items-center gap-4">
-            {/* Previous Button */}
-            <button
-              onClick={() => currentSection > 0 && scrollToSection(currentSection - 1)}
+            {/* prev btn */}
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setCurrentSection(Math.max(0, currentSection - 1))}
               disabled={currentSection === 0}
-              className="p-2 rounded-full bg-[var(--cyber-gray)] hover:bg-[var(--neon-cyan)]/20 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              className="p-2 rounded-full bg-[var(--cyber-dark)] border border-[var(--neon-cyan)] text-[var(--neon-cyan)] disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[var(--neon-cyan)] hover:text-black transition-all"
             >
-              <ChevronLeft className="w-4 h-4 text-[var(--neon-cyan)]" />
-            </button>
+              <ChevronLeft className="w-4 h-4" />
+            </motion.button>
 
             {/* Progress Bar */}
             <div className="flex items-center gap-3">
@@ -127,14 +129,16 @@ const SlideNavigation: React.FC<SlideNavigationProps> = ({ sections }) => {
               </span>
             </div>
 
-            {/* Next Button */}
-            <button
-              onClick={() => currentSection < sections.length - 1 && scrollToSection(currentSection + 1)}
+            {/* next btn */}
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setCurrentSection(Math.min(sections.length - 1, currentSection + 1))}
               disabled={currentSection === sections.length - 1}
-              className="p-2 rounded-full bg-[var(--cyber-gray)] hover:bg-[var(--neon-cyan)]/20 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              className="p-2 rounded-full bg-[var(--cyber-dark)] border border-[var(--neon-cyan)] text-[var(--neon-cyan)] disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[var(--neon-cyan)] hover:text-black transition-all"
             >
-              <ChevronRight className="w-4 h-4 text-[var(--neon-cyan)]" />
-            </button>
+              <ChevronRight className="w-4 h-4" />
+            </motion.button>
           </div>
 
           {/* Section Dots */}

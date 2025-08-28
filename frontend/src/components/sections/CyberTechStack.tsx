@@ -1,25 +1,18 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { 
-  Code2, 
-  Database, 
-  Layout, 
-  GitBranch, 
-  Wrench, 
-  Bot,
-} from 'lucide-react';
+import { Code2, Database, Layout, GitBranch, Wrench, Bot } from 'lucide-react';
 
 const CyberTechStack: React.FC = () => {
   const techCategories = [
     {
       title: 'BACKEND & API',
-      icon: <Code2 className="w-6 h-6" />, 
+      icon: <Code2 className="w-6 h-6" />,
       techs: ['Django', 'DRF', 'Django Channels', 'Celery', 'FastAPI', 'SQLAlchemy'],
       color: 'neon-cyan'
     },
     {
       title: 'DATABASES & CACHE',
-      icon: <Database className="w-6 h-6" />, 
+      icon: <Database className="w-6 h-6" />,
       techs: ['PostgreSQL', 'PostGIS', 'Redis', 'MySQL', 'SQLite', 'MongoDB'],
       color: 'neon-orange'
     },
@@ -161,7 +154,7 @@ const CyberTechStack: React.FC = () => {
                 ))}
               </div>
 
-              {/* Progress Bar */}
+              {/* skill progress */}
               <div className="mt-6 pt-4 border-t border-[var(--cyber-border)]">
                 <div className="flex justify-between items-center mb-2">
                   <span className="terminal-font text-xs text-gray-400">SKILL</span>
@@ -183,7 +176,7 @@ const CyberTechStack: React.FC = () => {
                 </div>
               </div>
 
-              {/* Hover Effect Overlay */}
+              {/* hover overlay */}
               <motion.div
                 initial={{ opacity: 0 }}
                 whileHover={{ opacity: 1 }}

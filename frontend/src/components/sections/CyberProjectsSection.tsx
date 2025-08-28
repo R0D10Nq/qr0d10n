@@ -10,11 +10,11 @@ const CyberProjectsSection: React.FC = () => {
   const categories = ['все', 'веб', 'api', 'автоматизация', 'ии'];
   const projects = portfolioData.projects;
 
-  const filteredProjects = projects;
+  const filteredProjects = projects; // TODO: add filtering logic
 
   return (
     <section className="py-20 bg-gradient-to-b from-black via-[var(--cyber-dark)] to-black relative overflow-hidden">
-      {/* Holographic Grid Background */}
+      {/* grid bg */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0" style={{
           backgroundImage: `
@@ -34,10 +34,10 @@ const CyberProjectsSection: React.FC = () => {
           className="text-center mb-16"
         >
           <h2 className="text-5xl md:text-6xl font-bold terminal-font text-[var(--neon-cyan)] animate-neon-glow mb-4">
-            МАТРИЦА_ПРОЕКТОВ
+            ПРОЕКТЫ_И_ДОСТИЖЕНИЯ
           </h2>
           <div className="text-[var(--neon-orange)] terminal-font text-lg">
-            {'>'} ЗАГРУЗКА_БАЗЫ_ПРОЕКТОВ...
+            {'>'} загружаю проекты...
           </div>
         </motion.div>
 
