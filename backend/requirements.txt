@@ -54,7 +54,7 @@ pre-commit==3.6.0
 
 # Security tools
 bandit==1.7.5
-safety==2.3.4
+safety==3.6.1
 
 # Additional testing
 factory-boy==3.3.0
