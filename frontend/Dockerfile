@@ -1,5 +1,5 @@
 # Dockerfile для React frontend
-FROM node:18-alpine AS builder
+FROM node:25-alpine AS builder
 
 # Устанавливаем рабочую директорию
 WORKDIR /app
