@@ -35,7 +35,7 @@ python-cors==1.7.0
 python-dotenv==1.0.0
 
 # Логирование
-structlog==23.2.0
+structlog==25.5.0
 
 # Тестирование
 pytest==7.4.3
