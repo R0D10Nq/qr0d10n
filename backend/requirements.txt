@@ -10,7 +10,7 @@ alembic==1.13.0
 psycopg2-binary==2.9.9
 
 # Redis и кеширование
-redis==5.0.1
+redis==7.0.0
 hiredis==2.2.3
 
 # Фоновые задачи
